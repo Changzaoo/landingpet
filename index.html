@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PetNexus — O segundo lar do seu melhor amigo</title>
+<meta name="description" content="PetShop PetNexus em Jardim Varginha, São Paulo. Banho & tosa, veterinário, creche, loja e leva-e-traz. Agende pelo app e baixe o e-book gratuito do tutor." />
+<meta name="theme-color" content="#0FA3B1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+/* ============ DESIGN SYSTEM · PetNexus Aurora ============ */
+:root{
+  color-scheme:light;
+  --accent:#0FA3B1;--accent-2:#0B7E8A;--accent-3:#14B8C4;--teal-deep:#0E7C86;
+  --coral:#FF7A45;--coral-2:#F0591F;
+  --grad:linear-gradient(135deg,#16C0CC,#0E7C86);
+  --grad-coral:linear-gradient(135deg,#FF9D6B,#F0591F);
+  --grad-mesh-1:#19C2CE;--grad-mesh-2:#FF7A45;--grad-mesh-3:#0E7C86;
+  --bg:#F5F5F7;--bg-2:#EDEEF0;--surface:#FFFFFF;--surface-2:#F2F3F5;
+  --text:#1A1A1C;--muted:#6E7378;--faint:#9A9FA6;
+  --border:rgba(0,0,0,.08);--hair:rgba(0,0,0,.05);
+  --shadow:0 12px 40px -12px rgba(20,40,50,.18),0 2px 8px -2px rgba(20,40,50,.06);
+  --shadow-sm:0 4px 16px -6px rgba(20,40,50,.12);
+  --shadow-lg:0 40px 90px -30px rgba(20,40,50,.34),0 8px 24px -10px rgba(20,40,50,.12);
+  --glass:rgba(255,255,255,.72);--glass-strong:rgba(255,255,255,.82);--nav-bg:rgba(245,245,247,.7);
+  --glow:radial-gradient(closest-side,rgba(15,163,177,.32),transparent 70%);
+  --grid-line:rgba(14,124,134,.06);
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#000000;--bg-2:#0A0A0C;--surface:#1C1C1E;--surface-2:#2C2C2E;
+  --text:#F5F5F7;--muted:#A1A1A6;--faint:#6E7077;
+  --border:rgba(255,255,255,.12);--hair:rgba(255,255,255,.07);
+  --shadow:0 24px 60px -20px rgba(0,0,0,.7);--shadow-sm:0 10px 30px -14px rgba(0,0,0,.55);
+  --shadow-lg:0 50px 110px -36px rgba(0,0,0,.8),0 12px 30px -12px rgba(0,0,0,.6);
+  --glass:rgba(28,28,30,.62);--glass-strong:rgba(28,28,30,.78);--nav-bg:rgba(10,10,12,.62);
+  --glow:radial-gradient(closest-side,rgba(45,212,223,.26),transparent 70%);
+  --grid-line:rgba(45,212,223,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:rgba(15,163,177,.25)}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:'Inter',-apple-system,system-ui,sans-serif;background:var(--bg);color:var(--text);
+  overflow-x:hidden;line-height:1.6;transition:background .55s var(--ease),color .55s var(--ease)}
+a{text-decoration:none;color:inherit}
+h1,h2,h3,h4{letter-spacing:-.03em;line-height:1.06;font-weight:600}
+h1,h2{font-weight:700}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.ey{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.muted{color:var(--muted)}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* ============ READING PROGRESS ============ */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:90;
+  background:var(--grad-coral);box-shadow:0 0 12px rgba(240,89,31,.5);transition:width .1s linear}
+
+/* ============ LOADER ============ */
+#loader{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:var(--bg);
+  transition:opacity .7s var(--ease),visibility .7s}
+#loader.hide{opacity:0;visibility:hidden}
+.loader-in{display:flex;flex-direction:column;align-items:center;gap:22px}
+.loader-mk{width:64px;height:64px;border-radius:20px;background:var(--grad);display:grid;place-items:center;
+  font-size:32px;color:#fff;box-shadow:0 16px 40px -10px rgba(14,124,134,.55);animation:floaty 2.4s var(--ease) infinite}
+.loader-mk .msi{font-variation-settings:'FILL' 1,'wght' 600,'GRAD' 0,'opsz' 40}
+.loader-brand{font-weight:700;font-size:1.35rem;letter-spacing:-.02em}
+.loader-brand b{background:var(--grad-coral);-webkit-background-clip:text;background-clip:text;color:transparent}
+.loader-bar{width:180px;height:4px;border-radius:50px;background:var(--hair);overflow:hidden}
+.loader-bar span{display:block;height:100%;width:30%;border-radius:50px;background:var(--grad);
+  animation:slide 1.3s var(--ease) infinite}
+@keyframes slide{0%{margin-left:-30%}100%{margin-left:100%}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ambient blobs */
+.blob{position:fixed;border-radius:50%;filter:blur(95px);opacity:.5;z-index:-1;pointer-events:none;
+  transition:opacity .5s;will-change:transform}
+.blob.a{width:540px;height:540px;background:radial-gradient(circle,#19C2CE,transparent 65%);top:-160px;right:-120px}
+.blob.b{width:480px;height:480px;background:radial-gradient(circle,#FF7A45,transparent 65%);top:62vh;left:-180px;opacity:.26}
+.blob.c{width:420px;height:420px;background:radial-gradient(circle,#0E7C86,transparent 65%);top:150vh;right:-140px;opacity:.2}
+[data-theme="dark"] .blob.a{opacity:.32}[data-theme="dark"] .blob.b{opacity:.18}[data-theme="dark"] .blob.c{opacity:.16}
+
+/* page grid backdrop */
+.grid-bg{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+  background-size:54px 54px;mask-image:radial-gradient(120% 80% at 50% 0%,#000 30%,transparent 78%);
+  -webkit-mask-image:radial-gradient(120% 80% at 50% 0%,#000 30%,transparent 78%)}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;gap:9px;border:none;cursor:pointer;font-family:inherit;font-size:.96rem;
+  font-weight:600;padding:14px 26px;border-radius:14px;will-change:transform;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s,border-color .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn-primary{background:var(--grad-coral);color:#fff;box-shadow:0 14px 32px -12px rgba(240,89,31,.6)}
+.btn-primary:hover{box-shadow:0 20px 44px -14px rgba(240,89,31,.7)}
+.btn-ghost{background:var(--glass);color:var(--text);border:1px solid var(--border);
+  backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%)}
+.btn-ghost:hover{border-color:color-mix(in srgb,var(--accent) 60%,transparent)}
+.btn-lg{padding:16px 30px;font-size:1.02rem}
+.btn .msi{font-variation-settings:'FILL' 1,'wght' 600,'GRAD' 0,'opsz' 22}
+
+/* ============ NAV ============ */
+header{position:fixed;top:0;left:0;right:0;z-index:60;transition:.4s var(--ease)}
+header .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+header.scrolled{background:var(--nav-bg);backdrop-filter:blur(22px) saturate(180%);
+  -webkit-backdrop-filter:blur(22px) saturate(180%);border-bottom:1px solid var(--hair)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:1.3rem;letter-spacing:-.02em}
+.brand .mk{width:36px;height:36px;border-radius:11px;background:var(--grad);display:grid;place-items:center;font-size:18px;
+  box-shadow:0 8px 20px -6px rgba(14,124,134,.55)}
+.brand b{background:var(--grad-coral);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a.lk{padding:9px 14px;border-radius:11px;font-weight:500;font-size:.92rem;color:var(--muted);transition:.22s var(--ease)}
+.nav-links a.lk:hover{color:var(--text);background:var(--hair)}
+.tg{width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:var(--glass);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:pointer;display:grid;place-items:center;
+  font-size:18px;transition:.28s var(--ease);color:var(--text);margin-left:4px}
+.tg:hover{border-color:var(--accent);transform:translateY(-2px)}
+.burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--border);
+  background:var(--glass);backdrop-filter:blur(12px);cursor:pointer;font-size:18px;color:var(--text);
+  transition:.28s var(--ease)}
+.burger:hover{border-color:var(--accent)}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:10px;padding-top:90px}
+.hero-mesh{position:absolute;inset:-10% -10% -20% -10%;z-index:-1;pointer-events:none;opacity:.9;
+  background:
+    radial-gradient(40% 50% at 18% 28%,color-mix(in srgb,var(--grad-mesh-1) 42%,transparent),transparent 70%),
+    radial-gradient(38% 46% at 82% 22%,color-mix(in srgb,var(--grad-mesh-2) 36%,transparent),transparent 72%),
+    radial-gradient(46% 52% at 70% 82%,color-mix(in srgb,var(--grad-mesh-3) 34%,transparent),transparent 74%);
+  filter:blur(20px);animation:meshShift 18s ease-in-out infinite}
+[data-theme="dark"] .hero-mesh{opacity:.55}
+@keyframes meshShift{0%,100%{transform:translate3d(0,0,0) scale(1)}33%{transform:translate3d(2%,-2%,0) scale(1.05)}66%{transform:translate3d(-2%,1%,0) scale(1.02)}}
+.hero-copy{padding:30px 0;position:relative;z-index:2}
+.tagpill{display:inline-flex;align-items:center;gap:9px;padding:8px 15px;border-radius:50px;background:var(--glass);
+  border:1px solid var(--border);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  font-size:.84rem;font-weight:500;color:var(--muted);margin-bottom:26px;box-shadow:var(--shadow-sm)}
+.tagpill .dot{width:8px;height:8px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 4px rgba(34,197,94,.18);
+  animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(34,197,94,.18)}50%{box-shadow:0 0 0 7px rgba(34,197,94,.06)}}
+.hero h1{font-size:clamp(2.7rem,5.6vw,4.7rem);letter-spacing:-.035em;font-weight:800}
+.hero h1 .g{background:var(--grad-coral);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{font-size:1.18rem;color:var(--muted);margin:24px 0 34px;max-width:500px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:34px;margin-top:46px}
+.hero-stats b{font-size:1.9rem;font-weight:800;display:block;letter-spacing:-.03em}
+.hero-stats span{font-size:.84rem;color:var(--faint);font-weight:500}
+.stage{position:relative;height:660px;display:grid;place-items:center}
+.stage::before{content:"";position:absolute;width:72%;height:72%;background:var(--glow);top:16%;left:14%;animation:haloPulse 6s ease-in-out infinite}
+@keyframes haloPulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+#dog3d{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:pan-y;z-index:1}
+#dog3d:active{cursor:grabbing}
+/* CSS fallback mascot */
+#dogFallback{position:absolute;inset:0;display:none;place-items:center;z-index:1}
+#dogFallback.show{display:grid}
+.fbk{position:relative;width:240px;height:240px;animation:floaty 4s var(--ease) infinite}
+.fbk .b1{position:absolute;left:30px;top:90px;width:180px;height:130px;border-radius:50%;background:linear-gradient(160deg,#F0B070,#C97F38)}
+.fbk .b2{position:absolute;left:120px;top:30px;width:130px;height:120px;border-radius:48% 48% 46% 46%;background:linear-gradient(160deg,#F4C58A,#D88B40)}
+.fbk .sn{position:absolute;left:200px;top:80px;width:50px;height:42px;border-radius:50%;background:#FBEAD0}
+.fbk .no{position:absolute;left:236px;top:90px;width:18px;height:15px;border-radius:50%;background:#1c1410}
+.fbk .e1,.fbk .e2{position:absolute;width:18px;height:20px;border-radius:50%;background:#241a14;top:64px}
+.fbk .e1{left:168px}.fbk .e2{left:202px}
+.fbk .ear1,.fbk .ear2{position:absolute;width:46px;height:64px;border-radius:50% 50% 50% 50%/70% 70% 30% 30%;background:linear-gradient(160deg,#D88B40,#A8651F);top:6px}
+.fbk .ear1{left:118px;transform:rotate(-18deg)}.fbk .ear2{left:198px;transform:rotate(18deg)}
+.fbk .col{position:absolute;left:178px;top:118px;width:54px;height:16px;border-radius:8px;background:#14B8C4;transform:rotate(8deg)}
+.hint{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);font-size:.78rem;color:var(--faint);font-weight:500;
+  display:flex;align-items:center;gap:6px;opacity:.9;z-index:3}
+.hint .msi{font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 20}
+/* floating glass chips around stage */
+.chip{position:absolute;z-index:4;display:flex;align-items:center;gap:9px;padding:11px 15px;border-radius:16px;
+  background:var(--glass-strong);border:1px solid var(--border);box-shadow:var(--shadow-sm);
+  backdrop-filter:blur(16px) saturate(170%);-webkit-backdrop-filter:blur(16px) saturate(170%);
+  font-size:.82rem;font-weight:600;will-change:transform;animation:chipFloat 6s ease-in-out infinite}
+.chip .ci{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-size:17px;color:#fff;flex:none}
+.chip small{display:block;font-size:.7rem;font-weight:500;color:var(--muted)}
+.chip.c1{top:8%;left:-2%;animation-delay:0s}
+.chip.c2{top:30%;right:-6%;animation-delay:1.2s}
+.chip.c3{bottom:16%;left:-4%;animation-delay:2.1s}
+@keyframes chipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.scroll-cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;
+  align-items:center;gap:7px;color:var(--faint);font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.scroll-cue .mouse{width:24px;height:38px;border:2px solid var(--faint);border-radius:14px;position:relative}
+.scroll-cue .mouse::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:7px;border-radius:3px;
+  background:var(--accent);transform:translateX(-50%);animation:wheel 1.6s var(--ease) infinite}
+@keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+/* ============ MARQUEE ============ */
+.marquee{overflow:hidden;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:18px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee .track{display:flex;gap:48px;width:max-content;animation:scrollx 32s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee .mi{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:1rem;color:var(--muted);white-space:nowrap}
+.marquee .mi .msi{color:var(--accent);font-size:1.3em}
+.marquee .mi b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes scrollx{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ============ SECTIONS ============ */
+section{padding:120px 0}
+.head{max-width:680px;margin:0 auto 64px;text-align:center}
+.head h2{font-size:clamp(2rem,3.8vw,3rem);margin:14px 0;letter-spacing:-.035em}
+.head p{font-size:1.1rem;color:var(--muted)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(30px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ BENTO SERVICES ============ */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(180px,auto);gap:18px}
+.tile{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:24px;
+  padding:28px;box-shadow:var(--shadow-sm);overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease)}
+.tile::before{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background:radial-gradient(120% 90% at 100% 0%,var(--tint,rgba(15,163,177,.10)),transparent 60%)}
+.tile::after{content:"";position:absolute;inset:0;border-radius:24px;opacity:0;transition:opacity .4s var(--ease);
+  background:radial-gradient(120% 80% at 50% 0%,var(--tint,rgba(15,163,177,.14)),transparent 65%);pointer-events:none}
+.tile:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.tile:hover::after{opacity:1}
+.tile>*{position:relative;z-index:1}
+.tile .ic{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:26px;margin-bottom:auto;
+  color:#fff;box-shadow:0 10px 24px -10px var(--ish,rgba(15,163,177,.6));transition:.4s var(--ease);background:var(--igr,var(--grad))}
+.tile:hover .ic{transform:scale(1.08) rotate(-4deg)}
+.tile .ic .msi{font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 28}
+.tile h3{font-size:1.22rem;margin:20px 0 6px;font-weight:700;letter-spacing:-.02em}
+.tile p{color:var(--muted);font-size:.94rem}
+.tile .pr{align-self:flex-start;display:inline-block;margin-top:16px;font-weight:600;font-size:.82rem;color:var(--accent-2);
+  background:var(--surface-2);padding:5px 13px;border-radius:50px;border:1px solid var(--hair)}
+.tile.feat{grid-column:span 2;grid-row:span 2;background:var(--grad);color:#fff;border:none;
+  box-shadow:0 30px 70px -26px rgba(14,124,134,.6)}
+.tile.feat::before,.tile.feat::after{display:none}
+.tile.feat h3{font-size:1.9rem;margin-top:18px}
+.tile.feat p{color:rgba(255,255,255,.92);font-size:1.05rem;max-width:340px}
+.tile.feat .ic{background:rgba(255,255,255,.18);backdrop-filter:blur(6px);box-shadow:none}
+.tile.feat .pr{background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.25)}
+.tile.feat .deco{position:absolute;right:-30px;bottom:-50px;font-size:230px;opacity:.12;z-index:0}
+.tile.feat .mini{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.tile.feat .mini span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);padding:7px 13px;
+  border-radius:50px;font-size:.8rem;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.tile.wide{grid-column:span 2}
+
+/* ============ HOW IT WORKS ============ */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;position:relative}
+.steps::before{content:"";position:absolute;top:42px;left:16%;right:16%;height:2px;z-index:0;
+  background:linear-gradient(90deg,transparent,var(--accent),var(--coral),transparent);opacity:.5}
+.step{position:relative;z-index:1;text-align:center;background:var(--surface);border:1px solid var(--border);
+  border-radius:24px;padding:34px 26px;box-shadow:var(--shadow-sm);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.step:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.step .num{width:62px;height:62px;border-radius:20px;margin:0 auto 18px;display:grid;place-items:center;font-size:30px;color:#fff;
+  background:var(--grad);box-shadow:0 14px 30px -10px rgba(14,124,134,.6)}
+.step .num .msi{font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 30}
+.step .k{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-2)}
+.step h4{font-size:1.2rem;margin:6px 0 8px}
+.step p{color:var(--muted);font-size:.94rem}
+
+/* ============ STATS / METERS ============ */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.metric{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:30px 26px;text-align:center;
+  box-shadow:var(--shadow-sm);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.metric:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.ring{--p:0;width:104px;height:104px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;position:relative;
+  background:conic-gradient(var(--accent) calc(var(--p)*1%),var(--surface-2) 0)}
+.ring::before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--surface)}
+.ring .rv{position:relative;font-size:1.45rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.metric.coral .ring{background:conic-gradient(var(--coral-2) calc(var(--p)*1%),var(--surface-2) 0)}
+.metric b.big{font-size:2.3rem;font-weight:800;display:block;letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:6px}
+.metric.coral b.big{background:var(--grad-coral);-webkit-background-clip:text;background-clip:text;color:transparent}
+.metric span{font-size:.88rem;color:var(--muted);font-weight:500}
+.metric .bar{height:8px;border-radius:50px;background:var(--surface-2);margin:14px 0 10px;overflow:hidden}
+.metric .bar i{display:block;height:100%;width:0;border-radius:50px;background:var(--grad);transition:width 1.4s var(--ease)}
+.metric.coral .bar i{background:var(--grad-coral)}
+
+/* ============ APP SHOWCASE ============ */
+.split{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center}
+.feats{list-style:none;margin-top:28px}
+.feats li{display:flex;gap:16px;align-items:flex-start;margin-bottom:22px}
+.feats .n{flex:none;width:46px;height:46px;border-radius:14px;background:var(--grad);color:#fff;
+  display:grid;place-items:center;font-weight:800;box-shadow:0 10px 22px -10px rgba(14,124,134,.6)}
+.feats h4{font-size:1.08rem;font-weight:700;letter-spacing:-.01em}
+.feats p{color:var(--muted);font-size:.95rem}
+
+.showcase{position:relative;min-height:660px;display:grid;place-items:center}
+.showcase::before{content:"";position:absolute;inset:6% 8%;background:var(--glow);z-index:0;border-radius:60px}
+.callout{position:absolute;z-index:4;display:flex;align-items:center;gap:9px;padding:9px 14px;border-radius:14px;
+  background:var(--glass-strong);border:1px solid var(--border);box-shadow:var(--shadow-sm);font-size:.8rem;font-weight:600;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.callout .msi{color:var(--accent-2)}
+.callout.co1{top:8%;left:-2%}
+.callout.co2{top:44%;right:-3%}
+.callout.co3{bottom:10%;left:0%}
+.callout::after{content:"";position:absolute;width:46px;height:1.5px;background:linear-gradient(90deg,var(--accent),transparent);top:50%}
+.callout.co1::after,.callout.co3::after{right:-46px;background:linear-gradient(90deg,var(--accent),transparent)}
+.callout.co2::after{left:-46px;background:linear-gradient(270deg,var(--accent),transparent)}
+
+.device-stack{position:relative;width:308px;height:632px}
+.device{position:absolute;border-radius:54px;padding:11px;
+  background:linear-gradient(155deg,#3a3a3c,#0c0c0e 55%,#1c1c1e);
+  box-shadow:0 60px 110px -30px rgba(0,0,0,.55),0 12px 30px -10px rgba(0,0,0,.4),
+    inset 0 0 0 2px rgba(255,255,255,.08),inset 0 1px 2px rgba(255,255,255,.18)}
+.device.front{width:308px;height:632px;z-index:3}
+.device.back{width:262px;height:540px;left:-120px;top:60px;z-index:1;opacity:.86;transform:rotate(-7deg);filter:saturate(.9)}
+.device.back2{width:236px;height:484px;right:-110px;top:96px;z-index:1;opacity:.74;transform:rotate(7deg);filter:saturate(.85)}
+.device::before{content:"";position:absolute;inset:5px;border-radius:48px;
+  box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.5);pointer-events:none;z-index:5}
+.dynamic-island{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:104px;height:31px;
+  border-radius:50px;background:#000;z-index:6;display:flex;align-items:center;justify-content:flex-end;padding-right:11px;gap:7px}
+.dynamic-island::before{content:"";width:8px;height:8px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#243,#011)}
+.screen{height:100%;border-radius:44px;overflow:hidden;background:var(--bg-2);position:relative;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.device.back .screen,.device.back2 .screen{border-radius:38px}
+.scr-status{position:absolute;top:0;left:0;right:0;height:48px;z-index:4;display:flex;align-items:flex-end;
+  justify-content:space-between;padding:0 26px 7px;color:#fff;font-size:.74rem;font-weight:600;pointer-events:none}
+.scr-status .r{display:flex;gap:5px;align-items:center;font-size:.8rem}
+.scr-top{background:var(--grad);color:#fff;padding:54px 20px 26px}
+.scr-top small{opacity:.9;font-weight:500;display:inline-flex;align-items:center;gap:5px}
+.scr-top h4{font-size:1.25rem;margin-top:4px;font-weight:700;letter-spacing:-.02em}
+.scr-card{background:var(--surface);margin:13px;border-radius:18px;padding:14px;display:flex;gap:12px;align-items:center;
+  box-shadow:var(--shadow-sm);border:1px solid var(--hair)}
+.scr-card .e{width:44px;height:44px;border-radius:13px;background:var(--surface-2);display:grid;place-items:center;
+  font-size:21px;color:var(--accent-2)}
+.scr-card b{font-size:.88rem;font-weight:600}.scr-card span{font-size:.74rem;color:var(--muted);display:block}
+.scr-btn{margin:8px 13px;background:var(--grad-coral);color:#fff;text-align:center;padding:13px;border-radius:14px;
+  font-weight:600;font-size:.9rem;box-shadow:0 10px 22px -10px rgba(240,89,31,.6)}
+.scr-grad{background:var(--grad-coral)}.scr-grad2{background:linear-gradient(160deg,#7C5CFF,#4F2FD1)}
+
+/* ============ MOMENTS / HIGHLIGHTS ============ */
+.moments{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.moment{position:relative;border-radius:24px;padding:30px 24px;min-height:200px;color:#fff;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;box-shadow:var(--shadow-sm);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.moment:hover{transform:translateY(-8px) scale(1.01);box-shadow:var(--shadow-lg)}
+.moment .mi2{position:absolute;top:18px;left:20px;font-size:40px;opacity:.95}
+.moment .mi2 .msi{font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 40}
+.moment .deco{position:absolute;right:-26px;bottom:-34px;font-size:150px;opacity:.16}
+.moment h4{font-size:1.22rem;font-weight:700;position:relative}
+.moment p{font-size:.86rem;opacity:.92;position:relative;margin-top:4px}
+.moment.m1{background:linear-gradient(150deg,#16C0CC,#0E7C86)}
+.moment.m2{background:linear-gradient(150deg,#FF9D6B,#F0591F)}
+.moment.m3{background:linear-gradient(150deg,#7C5CFF,#4F2FD1)}
+.moment.m4{background:linear-gradient(150deg,#34D399,#0E9F6E)}
+
+/* ============ TESTIMONIALS ============ */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.q{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:30px;box-shadow:var(--shadow-sm);
+  overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s}
+.q::after{content:"";position:absolute;inset:0;border-radius:24px;opacity:0;transition:opacity .4s;
+  background:radial-gradient(120% 80% at 50% 0%,rgba(15,163,177,.12),transparent 60%)}
+.q:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
+.q:hover::after{opacity:1}
+.q .qm{position:absolute;top:18px;right:22px;font-size:60px;line-height:1;color:var(--accent);opacity:.12;font-weight:900}
+.q>*{position:relative}
+.q .st{color:#FFB020;margin-bottom:14px;letter-spacing:2px;font-size:1.05rem}
+.q p{font-size:1rem;margin-bottom:20px}
+.q .who{display:flex;align-items:center;gap:12px}
+.q .av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:1rem;font-weight:800;color:#fff}
+.q .av.a1{background:linear-gradient(150deg,#16C0CC,#0E7C86)}
+.q .av.a2{background:linear-gradient(150deg,#FF9D6B,#F0591F)}
+.q .av.a3{background:linear-gradient(150deg,#7C5CFF,#4F2FD1)}
+.q .who b{font-weight:600;font-size:.94rem}.q .who span{font-size:.8rem;color:var(--faint)}
+
+/* ============ LOCATION ============ */
+.locgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:stretch}
+.mapcard{position:relative;border-radius:28px;overflow:hidden;min-height:380px;border:1px solid var(--border);
+  box-shadow:var(--shadow-sm);background:
+    radial-gradient(60% 50% at 70% 30%,rgba(15,163,177,.12),transparent 70%),
+    linear-gradient(160deg,var(--surface),var(--surface-2))}
+.mapcard .roads{position:absolute;inset:0;opacity:.7;
+  background-image:
+    linear-gradient(90deg,transparent 48%,var(--border) 48%,var(--border) 52%,transparent 52%),
+    linear-gradient(0deg,transparent 30%,var(--border) 30%,var(--border) 33%,transparent 33%),
+    linear-gradient(60deg,transparent 70%,var(--hair) 70%,var(--hair) 72%,transparent 72%);
+  background-size:120px 120px,90px 90px,160px 160px}
+.mapcard .blk{position:absolute;border-radius:10px;background:color-mix(in srgb,var(--accent) 8%,var(--surface));border:1px solid var(--hair)}
+.mapcard .pin{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center}
+.mapcard .pin .dotp{width:20px;height:20px;border-radius:50%;background:var(--coral-2);box-shadow:0 0 0 8px rgba(240,89,31,.18),0 8px 20px -6px rgba(240,89,31,.6);
+  animation:pinPulse 2.4s ease-in-out infinite}
+@keyframes pinPulse{0%,100%{box-shadow:0 0 0 8px rgba(240,89,31,.18),0 8px 20px -6px rgba(240,89,31,.6)}50%{box-shadow:0 0 0 16px rgba(240,89,31,.05),0 8px 20px -6px rgba(240,89,31,.6)}}
+.mapcard .lbl{position:absolute;left:50%;top:46%;transform:translate(-50%,-260%);z-index:3;background:var(--surface);
+  border:1px solid var(--border);border-radius:50px;padding:7px 14px;font-size:.8rem;font-weight:700;box-shadow:var(--shadow-sm);white-space:nowrap}
+.infocard{background:var(--surface);border:1px solid var(--border);border-radius:28px;padding:34px;box-shadow:var(--shadow-sm);
+  display:flex;flex-direction:column}
+.infocard h3{font-size:1.5rem;margin-bottom:6px}
+.infocard .row{display:flex;gap:13px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--hair)}
+.infocard .row:last-of-type{border-bottom:none}
+.infocard .row .ri{width:42px;height:42px;border-radius:13px;flex:none;display:grid;place-items:center;font-size:20px;
+  color:var(--accent-2);background:var(--surface-2);border:1px solid var(--hair)}
+.infocard .row b{font-size:.95rem;font-weight:600;display:block}.infocard .row span{font-size:.85rem;color:var(--muted)}
+.infocard .acts{display:flex;gap:10px;margin-top:auto;padding-top:20px;flex-wrap:wrap}
+
+/* ============ FAQ ============ */
+.faq{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.acc{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;
+  box-shadow:var(--shadow-sm);transition:border-color .3s var(--ease)}
+.acc[open]{border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.acc summary{list-style:none;cursor:pointer;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;
+  gap:14px;font-weight:600;font-size:1.04rem}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .msi{color:var(--accent-2);transition:transform .35s var(--ease);font-size:1.4em}
+.acc[open] summary .msi{transform:rotate(45deg)}
+.acc .ans{max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding .4s var(--ease);padding:0 24px;color:var(--muted)}
+.acc[open] .ans{max-height:300px;padding:0 24px 22px}
+@media(prefers-reduced-motion:reduce){.acc .ans{transition:none}}
+
+/* ============ EBOOK ============ */
+.ebook{position:relative;border-radius:32px;overflow:hidden;display:grid;grid-template-columns:1.05fr .95fr;
+  background:var(--grad);color:#fff;box-shadow:0 40px 80px -30px rgba(14,124,134,.6)}
+.ebook::after{content:"menu_book";font-family:'Material Symbols Rounded';position:absolute;font-size:240px;
+  left:28%;bottom:-80px;opacity:.07}
+.ebook-copy{padding:60px 50px;position:relative;z-index:1}
+.ebook-copy h2{font-size:2.1rem;margin:12px 0 14px;color:#fff;letter-spacing:-.03em}
+.ebook-copy .eybk{color:#FFD27A;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem}
+.ebook-copy ul{list-style:none;margin:20px 0 0;position:relative}
+.ebook-copy li{display:flex;gap:11px;align-items:center;margin-bottom:14px;font-size:1.02rem;opacity:.96}
+.ebook-copy li::before{font-family:'Material Symbols Rounded';content:"check_circle";font-size:1.2em;
+  color:#FFD27A;font-variation-settings:'FILL' 1}
+.lead{position:relative;z-index:1;background:var(--surface);color:var(--text);margin:30px 30px 30px 0;border-radius:24px;padding:36px;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.4);align-self:center}
+.lead h3{font-size:1.4rem;font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.lead h3 .msi{color:var(--coral-2)}
+.lead p{color:var(--muted);font-size:.9rem;margin:6px 0 18px}
+.lead input{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:13px;font-size:1rem;margin-bottom:11px;
+  font-family:inherit;background:var(--surface-2);color:var(--text);transition:.25s var(--ease)}
+.lead input::placeholder{color:var(--faint)}
+.lead input:focus{outline:none;border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 4px rgba(15,163,177,.12)}
+.lead .btn{width:100%;justify-content:center;margin-top:4px}
+.lead-ok{display:none;text-align:center;padding:28px 10px}
+.lead-ok .big{font-size:56px;color:var(--coral-2)}
+.lead-ok .big .msi{font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 48}
+.lead-ok h3{color:var(--accent-2);margin-top:10px;justify-content:center}
+.lead-ok p{margin-top:8px}
+
+/* ============ CTA ============ */
+.cta{position:relative;border-radius:32px;overflow:hidden;text-align:center;padding:88px 30px;color:#fff;
+  background:var(--grad-coral);box-shadow:0 40px 80px -30px rgba(240,89,31,.6)}
+.cta::after{content:"pets";font-family:'Material Symbols Rounded';position:absolute;font-size:300px;
+  right:-50px;bottom:-110px;opacity:.1}
+.cta::before{content:"pets";font-family:'Material Symbols Rounded';position:absolute;font-size:140px;
+  left:-30px;top:-50px;opacity:.08}
+.cta h2{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:14px;color:#fff;letter-spacing:-.03em;position:relative}
+.cta p{opacity:.96;font-size:1.12rem;margin-bottom:30px;position:relative}
+.cta .cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+.cta .btn-primary{background:#fff;color:var(--coral-2);box-shadow:0 14px 30px -10px rgba(0,0,0,.3)}
+.cta .btn-ghost{background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.3)}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--hair);padding:68px 0 36px;margin-top:110px}
+.fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px}
+footer .brand{margin-bottom:14px}
+footer p{font-size:.92rem;color:var(--muted);max-width:280px}
+footer h5{font-weight:600;margin-bottom:14px;font-size:1rem}
+footer ul{list-style:none}
+footer ul li{margin-bottom:9px;font-size:.92rem;color:var(--muted);transition:.2s var(--ease);cursor:pointer;
+  display:flex;align-items:center;gap:7px}
+footer ul li:hover{color:var(--accent-2)}
+footer ul li .msi{font-size:1.05em;color:var(--accent)}
+.fbottom{border-top:1px solid var(--hair);margin-top:48px;padding-top:24px;text-align:center;font-size:.84rem;
+  color:var(--faint);display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.fbottom .msi{color:var(--coral)}
+
+/* sticky mobile e-book button */
+.sticky-cta{position:fixed;left:16px;right:16px;bottom:16px;z-index:55;display:none;justify-content:center;
+  transform:translateY(140%);transition:transform .45s var(--ease)}
+.sticky-cta.show{transform:none}
+.sticky-cta .btn{width:100%;justify-content:center;box-shadow:0 18px 40px -12px rgba(240,89,31,.7)}
+
+/* ============ RESPONSIVE ============ */
+
+/* ---- Tablet / large ---- */
+@media(max-width:1024px){
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .tile.feat{grid-column:span 2;grid-row:span 1}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .moments{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ---- Hero / nav collapse + general stacking ---- */
+@media(max-width:920px){
+  section{padding:96px 0}
+
+  /* Hero: balanced vertical rhythm, 3D on top */
+  .hero{grid-template-columns:1fr;text-align:center;padding-top:108px;min-height:auto;gap:4px}
+  .hero-copy{padding:8px 0 4px;order:1}
+  .hero-cta,.hero-stats{justify-content:center}
+  .hero .sub{margin-inline:auto}
+  .stage{height:clamp(330px,52vh,520px);order:0;margin-bottom:6px}
+  .stage::before{width:78%;height:78%;top:12%;left:11%}
+  .chip{display:none}
+  .scroll-cue{display:none}
+
+  /* sections stack */
+  .quotes{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}.steps::before{display:none}
+  .split,.ebook,.locgrid{grid-template-columns:1fr}
+  .split{gap:34px}
+  .showcase{min-height:560px;margin-top:8px}
+  .device-stack{transform:scale(.92)}
+  .callout{display:none}
+  .lead{margin:0 30px 34px}.ebook-copy{padding:48px 38px 8px}
+  .ebook::after{font-size:180px;left:34%}
+  .fgrid{grid-template-columns:1fr 1fr}
+
+  /* hamburger menu — clean full-height panel */
+  .nav-links{position:fixed;inset:0 0 0 34%;flex-direction:column;justify-content:center;gap:8px;padding:0 26px;
+    background:var(--nav-bg);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);
+    transform:translateX(100%);transition:transform .4s var(--ease);border-left:1px solid var(--hair)}
+  .nav-links.open{transform:none}
+  .nav-links a.lk{font-size:1.06rem;width:100%;padding:13px 16px;min-height:48px;display:flex;align-items:center}
+  .nav-links .tg{margin:8px 0 0;width:48px;height:48px}
+  .nav-links .btn-primary{width:100%;justify-content:center;margin-top:8px;min-height:48px}
+  .burger{display:grid;place-items:center;z-index:70}
+  .sticky-cta{display:flex}
+  /* leave room for sticky CTA so it never covers content */
+  body{padding-bottom:88px}
+}
+
+/* ---- Phones (≤640) ---- */
+@media(max-width:640px){
+  section{padding:74px 0}
+  .wrap{padding:0 18px}
+  .head{margin-bottom:44px}
+  body{padding-bottom:84px}
+
+  /* Hero typography + buttons full-width */
+  .hero{padding-top:96px}
+  .hero h1{font-size:clamp(2.1rem,8.4vw,2.9rem)}
+  .hero .sub{font-size:1.04rem;margin:18px auto 26px}
+  .hero-cta{flex-direction:column;align-items:stretch;gap:11px;width:100%;max-width:360px;margin-inline:auto}
+  .hero-cta .btn{width:100%;justify-content:center}
+  .hero-stats{gap:0;justify-content:space-between;margin-top:34px;width:100%;max-width:380px;margin-inline:auto}
+  .hero-stats>div{flex:1}
+  .hero-stats b{font-size:1.45rem}
+  .hero-stats span{font-size:.74rem}
+  .stage{height:clamp(300px,56vh,440px)}
+
+  /* bento + grids single column */
+  .bento{grid-template-columns:1fr}
+  .tile.feat,.tile.wide{grid-column:span 1}
+  .tile{padding:24px;border-radius:20px}
+  .tile.feat h3{font-size:1.55rem}
+  .tile.feat p{font-size:1rem;max-width:none}
+  .tile.feat .deco{font-size:170px;right:-24px;bottom:-40px}
+  .metrics{grid-template-columns:1fr 1fr}
+  .moments{grid-template-columns:1fr}
+
+  /* steps tighter */
+  .steps{gap:16px}
+  .step{padding:28px 22px}
+
+  /* showcase: single device, centered, nothing cut */
+  .showcase{min-height:auto;margin-top:0;padding:8px 0}
+  .device.back,.device.back2{display:none}
+  .device-stack{transform:none;width:min(280px,82vw);height:auto;aspect-ratio:308/632;margin:0 auto}
+  .device.front{position:relative;width:100%;height:auto;aspect-ratio:308/632}
+
+  /* testimonials / location */
+  .q{padding:26px}
+  .mapcard{min-height:300px}
+  .infocard{padding:28px}
+  .infocard .acts .btn{flex:1;justify-content:center}
+
+  /* ebook stacks cleanly */
+  .ebook-copy{padding:38px 26px 4px}
+  .ebook-copy h2{font-size:1.7rem}
+  .lead{margin:0 18px 26px;padding:30px 24px}
+
+  /* CTA + faq */
+  .cta{padding:64px 22px;border-radius:24px}
+  .cta p{font-size:1.04rem}
+  .cta .cta-actions{flex-direction:column;align-items:stretch}
+  .cta .cta-actions .btn{width:100%;justify-content:center}
+  .acc summary{padding:18px 18px;font-size:.98rem}
+  .acc[open] .ans{padding:0 18px 20px}
+  .acc .ans{padding:0 18px}
+
+  /* footer */
+  footer{margin-top:80px;padding:54px 0 30px}
+}
+
+/* ---- Small phones (≤430) ---- */
+@media(max-width:430px){
+  .hero-stats b{font-size:1.3rem}
+  .hero-stats span{font-size:.68rem}
+  .metrics{grid-template-columns:1fr}
+  .device-stack{width:min(260px,80vw)}
+  .marquee .track{gap:34px}
+  .marquee .mi{font-size:.92rem}
+}
+
+/* ---- Tiny phones (≤360) ---- */
+@media(max-width:360px){
+  .wrap{padding:0 14px}
+  .hero h1{font-size:clamp(1.95rem,9vw,2.3rem)}
+  .brand{font-size:1.16rem}
+  .brand .mk{width:32px;height:32px}
+  .fgrid{grid-template-columns:1fr}
+}
+
+/* ---- Footer collapse for narrow widths ---- */
+@media(max-width:540px){
+  .fgrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:400px){
+  .fgrid{grid-template-columns:1fr}
+}
+
+.msi{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;font-size:1em;line-height:1;
+  letter-spacing:normal;white-space:nowrap;display:inline-block;vertical-align:middle;
+  font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24;-webkit-font-smoothing:antialiased}
+.mk{color:#fff}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .hero-mesh{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader" role="status" aria-live="polite" aria-label="Carregando">
+  <div class="loader-in">
+    <div class="loader-mk"><span class="msi">pets</span></div>
+    <div class="loader-brand">Pet<b>Nexus</b></div>
+    <div class="loader-bar"><span></span></div>
+  </div>
+</div>
+
+<div id="progress" aria-hidden="true"></div>
+<div class="grid-bg" aria-hidden="true"></div>
+<div class="blob a" aria-hidden="true"></div><div class="blob b" aria-hidden="true"></div><div class="blob c" aria-hidden="true"></div>
+
+<header id="hdr">
+  <div class="wrap bar">
+    <a class="brand" href="#topo"><span class="mk"><span class="msi">pets</span></span>Pet<b>Nexus</b></a>
+    <nav class="nav-links" id="nav" aria-label="Navegação principal">
+      <a class="lk" href="#servicos">Serviços</a>
+      <a class="lk" href="#como">Como funciona</a>
+      <a class="lk" href="#app">App</a>
+      <a class="lk" href="#ebook">E-book</a>
+      <a class="lk" href="#depoimentos">Avaliações</a>
+      <a class="lk" href="#contato">Contato</a>
+      <button class="tg" id="theme" aria-label="Alternar tema claro e escuro" title="Alternar tema"><span class="msi">dark_mode</span></button>
+      <a class="btn btn-primary" href="#ebook" style="padding:11px 20px">Baixar e-book</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><span class="msi">menu</span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero wrap" id="topo" style="padding-bottom:0">
+  <div class="hero-mesh" aria-hidden="true"></div>
+  <div class="hero-copy">
+    <span class="tagpill"><span class="dot"></span>Jardim Varginha · Zona Sul de SP</span>
+    <h1>O segundo lar do<br><span class="g">seu melhor amigo</span></h1>
+    <p class="sub">Banho & tosa, veterinário, creche e loja — agora na palma da mão. Agende online, receba ração em casa e nunca mais perca uma vacina.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary btn-lg" href="#ebook">Quero o e-book grátis <span class="msi">pets</span></a>
+      <a class="btn btn-ghost btn-lg" href="#app">Ver o app →</a>
+    </div>
+    <div class="hero-stats">
+      <div><b class="count" data-to="2500" data-prefix="+" data-sep="1">+2.500</b><span>patinhas felizes</span></div>
+      <div><b>4,9★</b><span>avaliação</span></div>
+      <div><b>7 dias</b><span>na semana</span></div>
+    </div>
+  </div>
+  <div class="stage">
+    <div id="dog3d" role="img" aria-label="Mascote 3D interativo e animado da PetNexus — arraste para girar, clique para brincar"></div>
+    <div id="dogFallback" aria-hidden="true">
+      <div class="fbk">
+        <span class="ear1"></span><span class="ear2"></span>
+        <span class="b1"></span><span class="b2"></span>
+        <span class="sn"></span><span class="no"></span>
+        <span class="e1"></span><span class="e2"></span>
+        <span class="col"></span>
+      </div>
+    </div>
+    <div class="chip c1"><span class="ci" style="background:var(--grad)"><span class="msi">event_available</span></span><span>Agendar<small>em segundos</small></span></div>
+    <div class="chip c2"><span class="ci" style="background:var(--grad-coral)"><span class="msi">local_shipping</span></span><span>Leva & Traz<small>tempo real</small></span></div>
+    <div class="chip c3"><span class="ci" style="background:linear-gradient(150deg,#34D399,#0E9F6E)"><span class="msi">vaccines</span></span><span>Vacinas<small>lembretes</small></span></div>
+    <div class="hint"><span class="msi">3d_rotation</span> arraste para girar · clique para brincar</div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><div class="mouse"></div>role para baixo</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span class="mi"><span class="msi">verified</span> Equipe veterinária <b>certificada</b></span>
+    <span class="mi"><span class="msi">pets</span> +2.500 patinhas felizes</span>
+    <span class="mi"><span class="msi">bathtub</span> Banho & Tosa</span>
+    <span class="mi"><span class="msi">local_shipping</span> Leva & Traz no bairro</span>
+    <span class="mi"><span class="msi">place</span> Jardim Varginha</span>
+    <span class="mi"><span class="msi">place</span> Cidade Dutra</span>
+    <span class="mi"><span class="msi">place</span> Grajaú</span>
+    <span class="mi"><span class="msi">star</span> 4,9 de avaliação</span>
+    <span class="mi"><span class="msi">schedule</span> Aberto 7 dias</span>
+    <!-- duplicate for seamless loop -->
+    <span class="mi"><span class="msi">verified</span> Equipe veterinária <b>certificada</b></span>
+    <span class="mi"><span class="msi">pets</span> +2.500 patinhas felizes</span>
+    <span class="mi"><span class="msi">bathtub</span> Banho & Tosa</span>
+    <span class="mi"><span class="msi">local_shipping</span> Leva & Traz no bairro</span>
+    <span class="mi"><span class="msi">place</span> Jardim Varginha</span>
+    <span class="mi"><span class="msi">place</span> Cidade Dutra</span>
+    <span class="mi"><span class="msi">place</span> Grajaú</span>
+    <span class="mi"><span class="msi">star</span> 4,9 de avaliação</span>
+    <span class="mi"><span class="msi">schedule</span> Aberto 7 dias</span>
+  </div>
+</div>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="ey">Nossos serviços</span>
+      <h2>Cuidado completo, do focinho ao rabinho</h2>
+      <p>Profissionais apaixonados por animais e estrutura pensada para o conforto do seu pet.</p>
+    </div>
+    <div class="bento">
+      <div class="tile feat reveal">
+        <span class="deco msi">spa</span>
+        <div class="ic"><span class="msi">bathtub</span></div>
+        <h3>Banho & Tosa premium</h3>
+        <p>Banho relaxante e tosa estética com produtos hipoalergênicos. Seu pet sai cheiroso, macio e fotogênico — agende pelo app em segundos.</p>
+        <div class="mini">
+          <span><span class="msi">water_drop</span> Hipoalergênico</span>
+          <span><span class="msi">content_cut</span> Tosa na tesoura</span>
+          <span><span class="msi">photo_camera</span> Foto pós-banho</span>
+        </div>
+        <span class="pr">a partir de R$ 45</span>
+      </div>
+      <div class="tile reveal" style="--tint:rgba(52,211,153,.14);--igr:linear-gradient(150deg,#34D399,#0E9F6E);--ish:rgba(14,159,110,.5)"><div class="ic"><span class="msi">stethoscope</span></div><h3>Clínica Veterinária</h3><p>Consultas, vacinas e check-ups com carteirinha digital sincronizada no app.</p><span class="pr">consulta R$ 120</span></div>
+      <div class="tile reveal" style="--tint:rgba(124,92,255,.14);--igr:linear-gradient(150deg,#7C5CFF,#4F2FD1);--ish:rgba(79,47,209,.5)"><div class="ic"><span class="msi">cottage</span></div><h3>Creche & Hotel</h3><p>Socialização durante o dia ou hospedagem segura e monitorada na viagem.</p><span class="pr">diária R$ 70</span></div>
+      <div class="tile wide reveal" style="--tint:rgba(240,89,31,.14);--igr:var(--grad-coral);--ish:rgba(240,89,31,.5)"><div class="ic"><span class="msi">shopping_bag</span></div><h3>Loja & Ração</h3><p>Rações premium, petiscos, areia e acessórios com entrega em casa na região — e recompra automática no app.</p><span class="pr">frete grátis</span></div>
+      <div class="tile reveal"><div class="ic"><span class="msi">local_shipping</span></div><h3>Leva & Traz</h3><p>Buscamos e devolvemos seu pet com segurança — acompanhe em tempo real.</p><span class="pr">a partir de R$ 20</span></div>
+      <div class="tile reveal" style="--tint:rgba(255,176,32,.16);--igr:linear-gradient(150deg,#FFC23C,#F59E0B);--ish:rgba(245,158,11,.5)"><div class="ic"><span class="msi">school</span></div><h3>Adestramento</h3><p>Educação positiva com profissionais certificados, presencial ou guiado.</p><span class="pr">avaliação grátis</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="como" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="ey">Simples assim</span>
+      <h2>Do agendamento ao rabinho abanando</h2>
+      <p>Três passos e o cuidado do seu pet vira rotina sem esforço.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num"><span class="msi">app_registration</span></div><span class="k">Passo 1</span><h4>Crie o perfil do pet</h4><p>Baixe o app, cadastre seu amigo e suba a carteirinha. Leva menos de um minuto.</p></div>
+      <div class="step reveal"><div class="num"><span class="msi">event_available</span></div><span class="k">Passo 2</span><h4>Escolha o serviço</h4><p>Veja horários livres de banho, tosa ou veterinário e marque com um toque.</p></div>
+      <div class="step reveal"><div class="num"><span class="msi">celebration</span></div><span class="k">Passo 3</span><h4>Relaxe e acompanhe</h4><p>A gente busca, cuida e devolve. Você acompanha tudo e ainda junta pontos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUE PETNEXUS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="ey">Por que a PetNexus</span>
+      <h2>Confiança de quem é da vizinhança</h2>
+      <p>Carinho, capricho e pontualidade que você sente em cada visita do seu pet.</p>
+    </div>
+    <div class="metrics">
+      <div class="metric reveal">
+        <div class="ring" data-p="98"><span class="rv count" data-to="98" data-suffix="%">98%</span></div>
+        <b class="big count" data-to="98" data-suffix="%">98%</b>
+        <span>tutores que recomendam</span>
+      </div>
+      <div class="metric coral reveal">
+        <div class="ring" data-p="96"><span class="rv">4,9★</span></div>
+        <b class="big">4,9★</b>
+        <span>avaliação média dos clientes</span>
+      </div>
+      <div class="metric reveal">
+        <b class="big count" data-to="2500" data-prefix="+" data-sep="1">+2.500</b>
+        <span>patinhas atendidas com amor</span>
+        <div class="bar" data-w="90"><i></i></div>
+      </div>
+      <div class="metric coral reveal">
+        <b class="big">7 dias</b>
+        <span>aberto na semana · 8h às 20h</span>
+        <div class="bar" data-w="100"><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP SHOWCASE -->
+<section id="app">
+  <div class="wrap split">
+    <div class="reveal">
+      <span class="ey">App & Clube de vantagens</span>
+      <h2 style="font-size:clamp(2rem,3.6vw,2.7rem);margin:14px 0;letter-spacing:-.035em">Seu pet shop no bolso, 24h por dia</h2>
+      <p class="muted" style="font-size:1.08rem">Resolva tudo em poucos toques — sem fila, sem ligação, sem esquecer a vacina.</p>
+      <ul class="feats">
+        <li><span class="n">1</span><div><h4>Agende em segundos</h4><p class="muted">Veja horários livres de banho, tosa e veterinário e marque na hora.</p></div></li>
+        <li><span class="n">2</span><div><h4>Compre ração e produtos</h4><p class="muted">Loja completa com entrega em casa em Jardim Varginha e região.</p></div></li>
+        <li><span class="n">3</span><div><h4>Carteirinha e lembretes</h4><p class="muted">Vacinas, retornos e recompra de ração com avisos automáticos.</p></div></li>
+        <li><span class="n">4</span><div><h4>Clube de pontos</h4><p class="muted">Acumule pontos a cada serviço e troque por descontos e brindes.</p></div></li>
+      </ul>
+    </div>
+    <div class="showcase reveal">
+      <div class="callout co1"><span class="msi">notifications_active</span> Lembrete de vacina</div>
+      <div class="callout co2"><span class="msi">pin_drop</span> Rastreio do leva & traz</div>
+      <div class="callout co3"><span class="msi">workspace_premium</span> Clube de pontos</div>
+      <div class="device-stack" data-parallax="0.06">
+        <div class="device back">
+          <div class="screen">
+            <div class="scr-top scr-grad2" style="padding-top:40px"><small>Loja PetNexus</small><h4>Ração Golden 15kg</h4></div>
+            <div class="scr-card"><div class="e"><span class="msi">shopping_bag</span></div><div><b>R$ 189,00</b><span>Entrega hoje · grátis</span></div></div>
+            <div class="scr-card"><div class="e"><span class="msi">redeem</span></div><div><b>Petisco brinde</b><span>+50 pontos</span></div></div>
+            <div class="scr-btn">Comprar agora</div>
+          </div>
+        </div>
+        <div class="device back2">
+          <div class="screen">
+            <div class="scr-top" style="padding-top:40px"><small>Carteirinha</small><h4>Thor · Golden</h4></div>
+            <div class="scr-card"><div class="e"><span class="msi">vaccines</span></div><div><b>V10</b><span>Em dia ✓</span></div></div>
+            <div class="scr-card"><div class="e"><span class="msi">medication</span></div><div><b>Vermífugo</b><span>Vence em 30 dias</span></div></div>
+          </div>
+        </div>
+        <div class="device front">
+          <div class="dynamic-island"></div>
+          <div class="screen">
+            <div class="scr-status"><span>9:41</span><span class="r"><span class="msi" style="font-size:1em">signal_cellular_alt</span><span class="msi" style="font-size:1em">wifi</span><span class="msi" style="font-size:1.1em">battery_full</span></span></div>
+            <div class="scr-top"><small>Olá, Mariana <span class="msi">waving_hand</span></small><h4>Como está o Thor hoje?</h4></div>
+            <div class="scr-card"><div class="e"><span class="msi">bathtub</span></div><div><b>Banho & Tosa</b><span>Hoje · 15h00 · com a Bia</span></div></div>
+            <div class="scr-card"><div class="e"><span class="msi">vaccines</span></div><div><b>Vacina V10</b><span>Vence em 12 dias</span></div></div>
+            <div class="scr-card"><div class="e"><span class="msi">shopping_bag</span></div><div><b>Ração Golden 15kg</b><span>Recomprar · R$ 189</span></div></div>
+            <div class="scr-card"><div class="e"><span class="msi">star</span></div><div><b>Clube PetNexus</b><span>320 pontos · Prata</span></div></div>
+            <div class="scr-btn">+ Novo agendamento</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOMENTS / HIGHLIGHTS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="ey">Para todo pet</span>
+      <h2>Cuidado pensado para cada momento</h2>
+      <p>Do filhote ao idoso, do pequenino ao gigante — tem carinho e expertise para todos.</p>
+    </div>
+    <div class="moments">
+      <div class="moment m1 reveal"><span class="mi2"><span class="msi">child_care</span></span><span class="deco msi">pets</span><h4>Filhotes</h4><p>Primeiras vacinas, socialização e o início de tudo com segurança.</p></div>
+      <div class="moment m2 reveal"><span class="mi2"><span class="msi">directions_run</span></span><span class="deco msi">sprint</span><h4>Cães ativos</h4><p>Banho, energia e creche para gastar toda aquela vontade de brincar.</p></div>
+      <div class="moment m3 reveal"><span class="mi2"><span class="msi">elderly</span></span><span class="deco msi">favorite</span><h4>Pets idosos</h4><p>Acompanhamento veterinário próximo e muito conforto no dia a dia.</p></div>
+      <div class="moment m4 reveal"><span class="mi2"><span class="msi">cruelty_free</span></span><span class="deco msi">cruelty_free</span><h4>Gatos</h4><p>Atendimento gentil, areia premium e produtos especiais com entrega.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- EBOOK -->
+<section id="ebook">
+  <div class="wrap">
+    <div class="ebook reveal">
+      <div class="ebook-copy">
+        <span class="eybk">E-book gratuito</span>
+        <h2>Guia do Tutor: 7 cuidados essenciais com o seu cão</h2>
+        <p style="opacity:.93">Escrito pela equipe veterinária da PetNexus. Tudo que todo dono precisa saber.</p>
+        <ul>
+          <li>Calendário completo de vacinas e vermífugos</li>
+          <li>Qual ração escolher por porte e idade</li>
+          <li>Frequência ideal de banho & tosa por raça</li>
+          <li>Sinais de alerta que pedem o veterinário</li>
+        </ul>
+      </div>
+      <div class="lead">
+        <form id="leadForm" novalidate>
+          <h3>Baixe agora, é grátis <span class="msi">pets</span></h3>
+          <p>Receba o PDF e ganhe <b>10% OFF</b> no primeiro banho.</p>
+          <input type="text" id="nome" placeholder="Seu nome" aria-label="Seu nome" required />
+          <input type="email" id="email" placeholder="Seu melhor e-mail" aria-label="Seu melhor e-mail" required />
+          <input type="tel" id="whats" placeholder="WhatsApp (com DDD)" aria-label="WhatsApp com DDD" required />
+          <input type="text" id="petnome" placeholder="Nome do seu pet" aria-label="Nome do seu pet" />
+          <button class="btn btn-primary" type="submit">Quero o e-book grátis</button>
+        </form>
+        <div class="lead-ok" id="leadOk">
+          <div class="big"><span class="msi">celebration</span></div>
+          <h3>Prontinho!</h3>
+          <p class="muted">Enviamos o e-book e o cupom <b>BEMVINDO10</b> para o seu e-mail e WhatsApp. Até logo!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal"><span class="ey">Quem confia</span><h2>Tutores da vizinhança recomendam</h2></div>
+    <div class="quotes">
+      <div class="q reveal"><span class="qm">“</span><div class="st">★★★★★</div><p>Agendei o banho no caminho do trabalho e ainda recebi a ração em casa no mesmo dia. Praticidade demais.</p><div class="who"><div class="av a1">MS</div><div><b>Mariana S.</b><span>tutora do Thor</span></div></div></div>
+      <div class="q reveal"><span class="qm">“</span><div class="st">★★★★★</div><p>O leva-e-traz salvou minha rotina. Acompanho tudo pelo celular e meu cão volta cheiroso e feliz.</p><div class="who"><div class="av a2">RM</div><div><b>Rafael M.</b><span>tutor da Mel</span></div></div></div>
+      <div class="q reveal"><span class="qm">“</span><div class="st">★★★★★</div><p>O lembrete de vacina pelo app me ajudou muito. Nunca mais perdi uma data. Equipe super atenciosa.</p><div class="who"><div class="av a3">DC</div><div><b>Dona Cida</b><span>tutora do Bob</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCALIZAÇÃO / CONTATO -->
+<section id="contato" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal"><span class="ey">Venha nos visitar</span><h2>Pertinho de você, em Jardim Varginha</h2></div>
+    <div class="locgrid">
+      <div class="mapcard reveal" role="img" aria-label="Mapa estilizado mostrando a localização da PetNexus em Jardim Varginha">
+        <div class="roads"></div>
+        <div class="blk" style="left:14%;top:18%;width:18%;height:22%"></div>
+        <div class="blk" style="left:64%;top:12%;width:22%;height:18%"></div>
+        <div class="blk" style="left:18%;top:64%;width:24%;height:20%"></div>
+        <div class="blk" style="left:68%;top:62%;width:18%;height:24%"></div>
+        <div class="lbl">PetNexus 🐾 Jd. Varginha</div>
+        <div class="pin"><div class="dotp"></div></div>
+      </div>
+      <div class="infocard reveal">
+        <h3>PetNexus</h3>
+        <p class="muted" style="margin-bottom:8px">O segundo lar do seu melhor amigo.</p>
+        <div class="row"><div class="ri"><span class="msi">place</span></div><div><b>Endereço</b><span>Jardim Varginha · Zona Sul · São Paulo, SP</span></div></div>
+        <div class="row"><div class="ri"><span class="msi">schedule</span></div><div><b>Horário</b><span>Seg a Dom · 8h às 20h</span></div></div>
+        <div class="row"><div class="ri"><span class="msi">call</span></div><div><b>Telefone & WhatsApp</b><span>(11) 9 0000-0000</span></div></div>
+        <div class="row"><div class="ri"><span class="msi">mail</span></div><div><b>E-mail</b><span>ola@petnexus.com.br</span></div></div>
+        <div class="acts">
+          <a class="btn btn-primary" href="#ebook"><span class="msi">chat</span> Chamar no WhatsApp</a>
+          <a class="btn btn-ghost" href="#app">Ver o app →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal"><span class="ey">Dúvidas frequentes</span><h2>Tudo o que você precisa saber</h2></div>
+    <div class="faq">
+      <details class="acc reveal"><summary>Como faço para agendar um banho ou consulta? <span class="msi">add</span></summary><div class="ans"><p>Pelo app da PetNexus, em poucos toques: escolha o serviço, veja os horários livres e confirme. Você também pode falar com a gente no WhatsApp.</p></div></details>
+      <details class="acc reveal"><summary>O leva & traz atende quais bairros? <span class="msi">add</span></summary><div class="ans"><p>Atendemos Jardim Varginha e regiões próximas da Zona Sul, como Cidade Dutra e Grajaú. Buscamos e devolvemos seu pet com total segurança e você acompanha o trajeto em tempo real.</p></div></details>
+      <details class="acc reveal"><summary>Como funciona o clube de pontos? <span class="msi">add</span></summary><div class="ans"><p>A cada serviço ou compra você acumula pontos automaticamente no app. Troque por descontos, brindes e banhos grátis. Quanto mais cuida, mais vantagens.</p></div></details>
+      <details class="acc reveal"><summary>O e-book é realmente gratuito? <span class="msi">add</span></summary><div class="ans"><p>Sim, 100% gratuito. Preencha o formulário e enviamos o PDF na hora, junto com um cupom de 10% de desconto no primeiro banho.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta reveal">
+      <h2>Seu melhor amigo merece o melhor cuidado</h2>
+      <p>Baixe o e-book gratuito, ganhe 10% no primeiro banho e venha nos visitar.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary btn-lg" href="#ebook">Baixar e-book grátis <span class="msi">pets</span></a>
+        <a class="btn btn-ghost btn-lg" href="#contato">Falar com a gente</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="#topo"><span class="mk"><span class="msi">pets</span></span>Pet<b>Nexus</b></a>
+        <p>O segundo lar do seu melhor amigo em Jardim Varginha, São Paulo. Banho & tosa, veterinário, creche, loja e leva & traz.</p>
+      </div>
+      <div><h5>Serviços</h5><ul><li>Banho & Tosa</li><li>Veterinário</li><li>Creche & Hotel</li><li>Loja & Ração</li><li>Leva & Traz</li></ul></div>
+      <div><h5>PetNexus</h5><ul><li>App do cliente</li><li>Clube de pontos</li><li>E-book do tutor</li><li>Trabalhe conosco</li></ul></div>
+      <div><h5>Contato</h5><ul><li><span class="msi">place</span> Jardim Varginha, SP</li><li><span class="msi">call</span> (11) 9 0000-0000</li><li><span class="msi">mail</span> ola@petnexus.com.br</li><li><span class="msi">schedule</span> Seg-Dom · 8h-20h</li></ul></div>
+    </div>
+    <div class="fbottom">© 2026 PetNexus · Feito com <span class="msi">pets</span> em São Paulo · Protótipo de demonstração</div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta" id="stickyCta"><a class="btn btn-primary" href="#ebook">Baixar e-book grátis <span class="msi">pets</span></a></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============ THEME ============ */
+const root=document.documentElement, tbtn=document.getElementById('theme');
+const sys=()=>matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+function applyTheme(t){root.setAttribute('data-theme',t);tbtn.innerHTML=t==='dark'?'<span class=msi>light_mode</span>':'<span class=msi>dark_mode</span>';
+  try{localStorage.setItem('petnexus_theme',t)}catch(_){ }
+  if(window.__setSceneTheme)window.__setSceneTheme(t);}
+let saved=null;try{saved=localStorage.getItem('petnexus_theme')}catch(_){}
+applyTheme(saved||sys());
+tbtn.onclick=()=>applyTheme(root.getAttribute('data-theme')==='dark'?'light':'dark');
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',e=>{if(!localStorage.getItem('petnexus_theme'))applyTheme(e.matches?'dark':'light')});
+
+/* ============ NAV ============ */
+const hdr=document.getElementById('hdr');
+const nav=document.getElementById('nav'),burger=document.getElementById('burger');
+burger.onclick=()=>{const open=nav.classList.toggle('open');burger.setAttribute('aria-expanded',open);burger.innerHTML=open?'<span class=msi>close</span>':'<span class=msi>menu</span>';};
+nav.querySelectorAll('a').forEach(a=>a.onclick=()=>{nav.classList.remove('open');burger.setAttribute('aria-expanded',false);burger.innerHTML='<span class=msi>menu</span>';});
+
+/* ============ READING PROGRESS + SCROLL FX ============ */
+const progress=document.getElementById('progress');
+const sticky=document.getElementById('stickyCta');
+const blobA=document.querySelector('.blob.a'),blobB=document.querySelector('.blob.b'),blobC=document.querySelector('.blob.c');
+const parA=document.querySelectorAll('[data-parallax]');
+function onScroll(){
+  const y=scrollY;
+  hdr.classList.toggle('scrolled',y>24);
+  const h=document.documentElement.scrollHeight-innerHeight;
+  progress.style.width=(h>0?(y/h)*100:0)+'%';
+  if(!RM){
+    blobA.style.transform='translateY('+(y*.12)+'px)';
+    blobB.style.transform='translateY('+(y*-.08)+'px)';
+    if(blobC)blobC.style.transform='translateY('+(y*.06)+'px)';
+    parA.forEach(el=>{const r=el.getBoundingClientRect();const c=r.top+r.height/2-innerHeight/2;
+      el.style.transform='translateY('+(c*-(parseFloat(el.dataset.parallax)||0))+'px)';});
+  }
+  sticky.classList.toggle('show',y>700);
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* ============ REVEAL (stagger) ============ */
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){
+  const sib=[...e.target.parentElement.children].filter(c=>c.classList.contains('reveal'));
+  const i=sib.indexOf(e.target);
+  e.target.style.transitionDelay=(RM?0:Math.min(i,6)*90)+'ms';
+  e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.16});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ============ COUNTERS ============ */
+function fmt(n,sep){if(sep){return Math.round(n).toLocaleString('pt-BR');}return Math.round(n);}
+const cio=new IntersectionObserver((es)=>es.forEach(e=>{if(!e.isIntersecting)return;
+  const el=e.target;cio.unobserve(el);
+  const to=parseFloat(el.dataset.to),pre=el.dataset.prefix||'',suf=el.dataset.suffix||'',sep=el.dataset.sep;
+  if(RM){el.textContent=pre+fmt(to,sep)+suf;return;}
+  const dur=1400,t0=performance.now();
+  (function tick(now){const p=Math.min((now-t0)/dur,1);const e2=1-Math.pow(1-p,3);
+    el.textContent=pre+fmt(to*e2,sep)+suf;if(p<1)requestAnimationFrame(tick);})(t0);
+}),{threshold:.6});
+document.querySelectorAll('.count').forEach(el=>cio.observe(el));
+
+/* ============ RINGS + BARS ============ */
+const mio=new IntersectionObserver((es)=>es.forEach(e=>{if(!e.isIntersecting)return;mio.unobserve(e.target);
+  const ring=e.target.querySelector('.ring');
+  if(ring){const target=+ring.dataset.p;
+    if(RM){ring.style.setProperty('--p',target);}
+    else{const t0=performance.now();(function rt(now){const p=Math.min((now-t0)/1400,1);const e2=1-Math.pow(1-p,3);
+      ring.style.setProperty('--p',(target*e2).toFixed(1));if(p<1)requestAnimationFrame(rt);})(t0);}}
+  const bar=e.target.querySelector('.bar i');if(bar){requestAnimationFrame(()=>bar.style.width=(e.target.querySelector('.bar').dataset.w)+'%');}
+}),{threshold:.5});
+document.querySelectorAll('.metric').forEach(el=>mio.observe(el));
+
+/* ============ LEAD FORM ============ */
+document.getElementById('leadForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  if(!this.checkValidity()){this.reportValidity();return;}
+  try{const a=JSON.parse(localStorage.getItem('petnexus_leads')||'[]');a.push({nome:nome.value,email:email.value,whats:whats.value,pet:petnome.value,data:new Date().toISOString()});localStorage.setItem('petnexus_leads',JSON.stringify(a));}catch(_){}
+  this.style.display='none';document.getElementById('leadOk').style.display='block';
+});
+
+/* ============ LOADER fallback ============ */
+function hideLoader(){const l=document.getElementById('loader');if(l&&!l.classList.contains('hide')){l.classList.add('hide');setTimeout(()=>l.remove(),800);}}
+addEventListener('load',()=>setTimeout(hideLoader,2600));
+
+/* ============ FALLBACK MASCOT (CSS) ============ */
+function showFallbackMascot(){const f=document.getElementById('dogFallback');if(f)f.classList.add('show');hideLoader();}
+
+/* ============ 3D MASCOTE · modelo GLTF animado (premium) ============ */
+(function(){
+let raf,renderer,mixer,model;const disposables=[];const clock=new THREE.Clock();
+try{
+  const mount=document.getElementById('dog3d');
+  if(!window.THREE||!mount){showFallbackMascot();return;}
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(34,mount.clientWidth/Math.max(mount.clientHeight,1),0.1,100);
+  camera.position.set(0,1.35,9.6);camera.lookAt(0,.55,0);
+
+  renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
+  renderer.setSize(mount.clientWidth,mount.clientHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.8));
+  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  mount.appendChild(renderer.domElement);
+
+  /* ---- environment reflection from a soft sky gradient ---- */
+  let envMap=null;
+  try{
+    const pmrem=new THREE.PMREMGenerator(renderer);pmrem.compileEquirectangularShader();
+    const envScene=new THREE.Scene();
+    const skyGeo=new THREE.SphereGeometry(50,32,32);
+    const skyMat=new THREE.ShaderMaterial({side:THREE.BackSide,uniforms:{top:{value:new THREE.Color(0xeaf7f9)},bot:{value:new THREE.Color(0xfff1e6)}},
+      vertexShader:'varying vec3 vP;void main(){vP=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+      fragmentShader:'varying vec3 vP;uniform vec3 top;uniform vec3 bot;void main(){float h=normalize(vP).y*.5+.5;gl_FragColor=vec4(mix(bot,top,h),1.);}'});
+    const sky=new THREE.Mesh(skyGeo,skyMat);envScene.add(sky);
+    const eL=new THREE.DirectionalLight(0xffffff,1.0);eL.position.set(4,6,3);envScene.add(eL);
+    envMap=pmrem.fromScene(envScene,0,0.1,100).texture;scene.environment=envMap;
+    skyGeo.dispose();skyMat.dispose();pmrem.dispose();
+  }catch(_){}
+
+  /* ---- lights (cinematic, brand-tinted) ---- */
+  const hemi=new THREE.HemisphereLight(0xffffff,0x9fb6bd,.5);scene.add(hemi);
+  const key=new THREE.DirectionalLight(0xfff1dc,2.0);key.position.set(5,9,6);
+  key.castShadow=true;key.shadow.mapSize.set(2048,2048);key.shadow.radius=9;
+  key.shadow.camera.near=1;key.shadow.camera.far=30;
+  key.shadow.camera.left=-7;key.shadow.camera.right=7;key.shadow.camera.top=7;key.shadow.camera.bottom=-7;
+  key.shadow.bias=-0.00035;scene.add(key);
+  const rimTeal=new THREE.DirectionalLight(0x59e6f0,1.1);rimTeal.position.set(-6,3.5,-4);scene.add(rimTeal);
+  const rimCoral=new THREE.DirectionalLight(0xff9a5c,.8);rimCoral.position.set(6,2.5,-4);scene.add(rimCoral);
+  const fill=new THREE.DirectionalLight(0xffe6c2,.35);fill.position.set(2,1,8);scene.add(fill);
+
+  /* ---- contact shadow + glass pedestal + glow ---- */
+  const shadowMat=new THREE.ShadowMaterial({opacity:.26});disposables.push(shadowMat);
+  const groundGeo=new THREE.PlaneGeometry(40,40);disposables.push(groundGeo);
+  const ground=new THREE.Mesh(groundGeo,shadowMat);ground.rotation.x=-Math.PI/2;ground.position.y=-1.15;ground.receiveShadow=true;scene.add(ground);
+  const discGeo=new THREE.CylinderGeometry(2.6,2.85,.34,64);disposables.push(discGeo);
+  const discMat=new THREE.MeshStandardMaterial({color:0x14B8C4,roughness:.22,metalness:.1,transparent:true,opacity:.16,envMap:envMap,envMapIntensity:.6});disposables.push(discMat);
+  const disc=new THREE.Mesh(discGeo,discMat);disc.position.y=-1.32;disc.receiveShadow=true;scene.add(disc);
+  const glowGeo=new THREE.CircleGeometry(3.1,48);disposables.push(glowGeo);
+  const glowMat=new THREE.MeshBasicMaterial({color:0x16C0CC,transparent:true,opacity:.14,blending:THREE.AdditiveBlending,depthWrite:false});disposables.push(glowMat);
+  const glow=new THREE.Mesh(glowGeo,glowMat);glow.rotation.x=-Math.PI/2;glow.position.y=-1.13;scene.add(glow);
+
+  /* ---- floating bokeh particles ---- */
+  let points=null;
+  if(!RM){
+    const N=60,pos=new Float32Array(N*3);
+    for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*12;pos[i*3+1]=Math.random()*7-1.5;pos[i*3+2]=(Math.random()-.5)*8-2;}
+    const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));disposables.push(pg);
+    const pm=new THREE.PointsMaterial({color:0x7fe3ec,size:.09,transparent:true,opacity:.5,blending:THREE.AdditiveBlending,depthWrite:false});disposables.push(pm);
+    points=new THREE.Points(pg,pm);scene.add(points);
+  }
+
+  /* ---- rotation/parallax pivots ---- */
+  const pivot=new THREE.Group();scene.add(pivot);
+  const spin=new THREE.Group();pivot.add(spin);
+
+  /* ---- theme hook ---- */
+  window.__setSceneTheme=function(t){
+    const dark=t==='dark';
+    hemi.intensity=dark?.42:.5;key.intensity=dark?1.7:2.0;
+    shadowMat.opacity=dark?.34:.26;
+    discMat.color.set(dark?0x2DD4DF:0x14B8C4);discMat.opacity=dark?.12:.16;
+    glowMat.color.set(dark?0x2DD4DF:0x16C0CC);glowMat.opacity=dark?.18:.14;
+  };
+  window.__setSceneTheme(root.getAttribute('data-theme'));
+
+  /* ---- load the animated model ---- */
+  let started=false;const actions={};let current=null;
+  function setAction(name,fade){
+    const next=actions[name];if(!next||next===current)return;
+    if(current)current.fadeOut(fade||0.3);
+    next.reset().fadeIn(fade||0.3).play();current=next;
+  }
+  function buildModel(gltf){
+    try{
+      model=gltf.scene;
+      let box=new THREE.Box3().setFromObject(model);
+      const size=box.getSize(new THREE.Vector3());
+      const s=3.4/Math.max(size.x,size.y,size.z);
+      model.scale.setScalar(s);
+      box=new THREE.Box3().setFromObject(model);
+      const c=box.getCenter(new THREE.Vector3());
+      model.position.x-=c.x;model.position.z-=c.z;
+      model.position.y-=box.min.y;model.position.y-=1.15;
+      model.rotation.y=-0.55;
+      model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;
+        if(o.material){o.material.envMap=envMap;o.material.envMapIntensity=.55;o.material.needsUpdate=true;}}});
+      spin.add(model);
+      if(gltf.animations&&gltf.animations.length){
+        mixer=new THREE.AnimationMixer(model);
+        gltf.animations.forEach(cl=>{actions[cl.name]=mixer.clipAction(cl);});
+        const idleName=actions['Survey']?'Survey':gltf.animations[0].name;
+        const idle=actions[idleName];if(idle){idle.play();current=idle;}
+      }
+    }catch(e){}
+    started=true;hideLoader();
+  }
+  function loadModel(){
+    if(!THREE.GLTFLoader){showFallbackMascot();return;}
+    const loader=new THREE.GLTFLoader();
+    const URLS=[
+      'https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models@master/2.0/Fox/glTF-Binary/Fox.glb',
+      'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Fox/glTF-Binary/Fox.glb'
+    ];
+    let i=0;
+    (function tryLoad(){
+      try{loader.load(URLS[i],buildModel,undefined,function(){i++;if(i<URLS.length)tryLoad();else showFallbackMascot();});}
+      catch(e){showFallbackMascot();}
+    })();
+  }
+  loadModel();
+
+  /* ---- interaction: drag to rotate + click to play ---- */
+  let drag=false,px=0,tRot=0,rotY=0,auto=true,pointerX=0,pointerY=0,clickTimer=null;
+  mount.style.touchAction='pan-y';mount.style.cursor='grab';
+  mount.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;auto=false;mount.style.cursor='grabbing';try{mount.setPointerCapture(e.pointerId);}catch(_){}});
+  addEventListener('pointerup',()=>{drag=false;mount.style.cursor='grab';});
+  addEventListener('pointermove',e=>{if(drag){tRot+=(e.clientX-px)*0.01;px=e.clientX;}});
+  mount.addEventListener('pointermove',e=>{const r=mount.getBoundingClientRect();pointerX=((e.clientX-r.left)/r.width-.5);pointerY=((e.clientY-r.top)/r.height-.5);});
+  mount.addEventListener('click',()=>{
+    const playName=actions['Run']?'Run':(actions['Walk']?'Walk':null);
+    if(!playName)return;
+    setAction(playName,0.2);
+    clearTimeout(clickTimer);clickTimer=setTimeout(()=>{setAction(actions['Survey']?'Survey':Object.keys(actions)[0],0.4);},2200);
+  });
+
+  /* ---- loop ---- */
+  function loop(){
+    raf=requestAnimationFrame(loop);
+    const dt=Math.min(clock.getDelta(),0.05),t=clock.elapsedTime;
+    if(mixer)mixer.update(dt);
+    if(auto&&!RM)tRot+=dt*0.22;
+    rotY+=(tRot-rotY)*0.08;spin.rotation.y=rotY;
+    pivot.rotation.y+=((pointerX*0.45)-pivot.rotation.y)*0.05;
+    pivot.rotation.x+=((pointerY*0.2)-pivot.rotation.x)*0.05;
+    if(!RM)pivot.position.y=Math.sin(t*1.4)*0.06;
+    if(points){points.rotation.y=t*0.03;points.position.y=Math.sin(t*0.5)*0.15;}
+    renderer.render(scene,camera);
+  }
+  loop();
+
+  /* ---- pause when tab hidden ---- */
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden){if(raf){cancelAnimationFrame(raf);raf=null;}}
+    else if(!raf){clock.getDelta();loop();}
+  });
+
+  /* ---- resize ---- */
+  addEventListener('resize',()=>{if(!mount.clientWidth||!mount.clientHeight)return;
+    camera.aspect=mount.clientWidth/mount.clientHeight;camera.updateProjectionMatrix();
+    renderer.setSize(mount.clientWidth,mount.clientHeight);});
+
+  /* ---- dispose ---- */
+  function cleanup(){if(raf)cancelAnimationFrame(raf);raf=null;
+    try{if(mixer)mixer.stopAllAction();}catch(_){}
+    disposables.forEach(d=>{try{d&&d.dispose&&d.dispose()}catch(_){}});
+    try{if(envMap)envMap.dispose()}catch(_){}
+    try{if(model)model.traverse(o=>{if(o.isMesh){o.geometry&&o.geometry.dispose&&o.geometry.dispose();
+      if(o.material){(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>{m.map&&m.map.dispose&&m.map.dispose();m.dispose&&m.dispose();});}}});}catch(_){}
+    try{renderer.dispose()}catch(_){}
+    try{renderer.forceContextLoss&&renderer.forceContextLoss()}catch(_){}}
+  addEventListener('pagehide',cleanup);
+
+}catch(err){
+  try{cancelAnimationFrame(raf);}catch(_){}
+  try{if(renderer){renderer.dispose();}}catch(_){}
+  try{disposables.forEach(d=>{try{d&&d.dispose&&d.dispose()}catch(_){}});}catch(_){}
+  showFallbackMascot();
+}
+})();
+
+/* safety net: if for any reason loader still here after 5.5s, hide it */
+setTimeout(hideLoader,5500);
+</script>
+</body>
+</html>
